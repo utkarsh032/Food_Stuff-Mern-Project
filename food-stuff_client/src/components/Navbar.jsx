@@ -1,8 +1,24 @@
-import React from 'react'
+import React, { useState } from 'react'
 import logo from '/f--d_stuff.png'
 import { FiPhoneCall } from "react-icons/fi";
 
 const Navbar = () => {
+
+  const [isSticky, setSticky] = useState(false)
+
+  useState(() => {
+    const handleScroll = () => {
+      const offSet = window.scrollY
+      if (offSet > 0) {
+        setSticky(true)
+      } else {
+        setSticky(false)
+      }
+    }
+    return () => {
+      window.addEventListener('scroll', handleScroll)
+    }
+  }, [])
 
   const navItems = (
     <>
@@ -30,14 +46,14 @@ const Navbar = () => {
   )
 
   return (
-    <header className='max-w-screen-2xl container pt-4 mx-auto text-[#fff]'>
-      <div className="navbar xl:px-20">
+    <header className='max-w-screen-2xl container  mx-auto text-[#fff] fixed top-0 left-0 ring-0 transition-all duration-300 ease-in-out'>
+      <div className={`navbar backdrop-blur-3xl  xl:px-24 ${isSticky ? "shadow-md  transition-all duration-500 ease-in-out" : ""}`}>
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
             </div>
-            <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52 gap-2">
+            <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52 gap-2 ">
               {/*list-item */}
               {navItems}
 
@@ -48,7 +64,7 @@ const Navbar = () => {
           </a>
         </div>
         <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-1 gap-4">
+          <ul className="menu menu-horizontal px-1 gap-4 text-lg">
             {/*list-item */}
             {navItems}
           </ul>
@@ -70,7 +86,7 @@ const Navbar = () => {
             Contact</a>
         </div>
       </div>
-    </header>
+    </header >
   )
 }
 
