@@ -66,7 +66,7 @@ const Navbar = () => {
               <span className="badge badge-sm indicator-item">0</span>
             </div>
           </div>
-          <a className="btn bg-[#FC6D87] hover:bg-[#FF7A92] rounded-full px-6 flex items-center text-[#fff]"><FiPhoneCall />
+          <a className="button"><FiPhoneCall />
             Contact</a>
         </div>
       </div>

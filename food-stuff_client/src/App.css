@@ -8,3 +8,15 @@ body {
   font-family: 'Inter', sans-serif;
 
 }
+
+.section-container {
+  @apply max-w-screen-2xl container mx-auto xl:px-24 px-4 bg-gradient-to-tr from-[#CFFDFB] to-[#AF85E4]
+}
+
+.button {
+  @apply btn border-none bg-[#FC6D87] hover:bg-[#FF7A92] hover:shadow-lg rounded-full px-6 flex items-center text-[#fff]
+}
+
+.backgroundPrimary {
+  @apply bg-gradient-to-tr from-[#FADBFF] to-[#CF95FD]
+}
