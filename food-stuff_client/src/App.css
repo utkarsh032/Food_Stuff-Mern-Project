@@ -3,9 +3,8 @@
 body {
   /* background: linear-gradient(to top, #CFFDFB, #AF85E400); */
 
-  background: linear-gradient(to bottom, #CFFDFB, #AF85E4);
+  /* background: linear-gradient(to bottom, #CFFDFB, #AF85E4); */
   /* background: linear-gradient(179deg, #CFF5FD 1.12%, rgba(175, 133, 228, 0.00) 112.86%); */
-  background-repeat: no-repeat;
   font-family: 'Inter', sans-serif;
 
 }
