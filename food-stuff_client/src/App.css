@@ -28,3 +28,7 @@ body {
 .title{
   @apply text-[#0E3E4E] text-4xl md:text-5xl font-bold my-2 md:leading-snug leading-snug
 }
+
+.heartStar{
+   border-radius: 0px 28px 0px 28px;
+}
