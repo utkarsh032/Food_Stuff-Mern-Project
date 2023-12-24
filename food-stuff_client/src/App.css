@@ -10,7 +10,7 @@ body {
 }
 
 .section-container {
-  @apply max-w-screen-2xl container mx-auto xl:px-24 px-4 bg-gradient-to-tr from-[#CFFDFB] to-[#AF85E4]
+  @apply max-w-screen-2xl container mx-auto xl:px-24 px-4 
 }
 
 .button {
@@ -19,4 +19,12 @@ body {
 
 .backgroundPrimary {
   @apply bg-gradient-to-tr from-[#FADBFF] to-[#CF95FD]
+}
+
+.subTitle{
+  @apply text-[#EB2424] uppercase tracking-wide font-medium text-lg
+}
+
+.title{
+  @apply text-[#0E3E4E] text-4xl md:text-5xl font-bold my-2 md:leading-snug leading-snug
 }

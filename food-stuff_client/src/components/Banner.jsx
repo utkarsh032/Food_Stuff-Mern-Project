@@ -2,7 +2,7 @@ import React from 'react'
 
 function Banner() {
   return (
-    <div className='section-container text-[#0E3E4E]'>
+    <div className='section-container text-[#0E3E4E] bg-gradient-to-tr from-[#CFFDFB] to-[#AF85E4]'>
       <div className='p-24 flex flex-col md:flex-row-reverse justify-between items-center gap-8'>
         {/*Banner */}
         <div className='md:w-1/2'>
