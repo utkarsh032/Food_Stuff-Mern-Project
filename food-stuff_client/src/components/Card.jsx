@@ -15,7 +15,7 @@ const Card = ({ item }) => {
     <div to={`/menu/${item._id}`} className="backgroundPrimary text-[#0E3E4E] card w-96 relative mr-5 md:my-5 bg-base-100 shadow-xl cursor-pointer">
 
       <div className={`rating gap-1 absolute right-2 top-2 p-4 heartStar bg-[#FC6D87] hover:bg-[#FF7A92] ${isHeartFilled ? "text-rose-500" : "text-white"
-          }`}
+        }`}
         onClick={handleHeartClick}
       >
         <FaHeart className="w-5 h-5 cursor-pointer" />
@@ -35,7 +35,7 @@ const Card = ({ item }) => {
           <button className="btn button">Buy Now</button>
         </div>
       </div>
-      
+
     </div>
   )
 }
