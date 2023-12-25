@@ -22,12 +22,12 @@ const Navbar = () => {
 
   const navItems = (
     <>
-      <li><a className='hover:bg-[#FF7A92]'>Home</a></li>
+      <li><a className='hover:bg-[#FF7A92]' href='/'>Home</a></li>
       <li>
         <details>
           <summary className='hover:bg-[#FF7A92]'>Menu</summary>
           <ul className="p-2 ">
-            <li><a className='hover:bg-[#FF7A92]'>All</a></li>
+            <li><a className='hover:bg-[#FF7A92]' href='/menu'>All</a></li>
             <li><a className='hover:bg-[#FF7A92]'>Salad</a></li>
             <li><a className='hover:bg-[#FF7A92]'>Pizza</a></li>
           </ul>

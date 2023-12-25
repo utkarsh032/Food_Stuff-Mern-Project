@@ -14,7 +14,7 @@ body {
 }
 
 .button {
-  @apply btn border-none bg-[#FC6D87] hover:bg-[#FF7A92] hover:shadow-lg rounded-full px-6 flex items-center text-[#fff]
+  @apply btn border-none bg-[#FC6D87] hover:bg-[#FF7A92] hover:shadow-lg rounded-full px-6  items-center text-[#fff]
 }
 
 .backgroundPrimary {
