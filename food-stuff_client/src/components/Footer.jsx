@@ -9,7 +9,7 @@ import { FiYoutube } from "react-icons/fi";
 
 const Footer = () => {
   return (
-    <div className="bg-gradient-to-br from-[#CFFDFB] to-[#AF85E4] section-container ">
+    <div className="max-w-screen-2xl mx-auto bg-gradient-to-br from-[#CFFDFB] to-[#AF85E4]  ">
       <hr />
       <footer className="footer xl:px-24 py-10 px-4 text-[#0E3E4E]">
         <aside>

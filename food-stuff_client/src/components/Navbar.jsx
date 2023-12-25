@@ -46,7 +46,7 @@ const Navbar = () => {
   )
 
   return (
-    <header className='max-w-screen-2xl container  mx-auto text-[#fff] fixed top-0 left-0 ring-0 transition-all duration-300 ease-in-out'>
+    <header className={`max-w-screen-2xl container mx-auto fixed text-[#fff] top-0 left-0 right-0 transition-all duration-300 ease-in-out`}>
       <div className={`navbar backdrop-blur-3xl  xl:px-24 ${isSticky ? "shadow-md  transition-all duration-500 ease-in-out" : ""}`}>
         <div className="navbar-start">
           <div className="dropdown">
