@@ -14,7 +14,7 @@ function Banner() {
               <div className='space-y-1'>
                 <h5 className='font-medium mb-1'>Spicy Noodles</h5>
                 <div className="rating rating-sm">
-                  <input type="radio" name="rating-2" className="mask mask-star-2 bg-[#FC6D87]" checked  />
+                  <input type="radio" name="rating-2" className="mask mask-star-2 bg-[#FC6D87]" checked readOnly />
                   <input type="radio" name="rating-2" className="mask mask-star-2 bg-[#FC6D87]" checked readOnly />
                   <input type="radio" name="rating-2" className="mask mask-star-2 bg-[#FC6D87]" checked readOnly />
                   <input type="radio" name="rating-2" className="mask mask-star-2 bg-[#FC6D87]" readOnly />
