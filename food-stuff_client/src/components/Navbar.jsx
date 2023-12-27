@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import logo from '/f--d_stuff.png'
-import { FiPhoneCall } from "react-icons/fi";
+import { FaRegUser } from "react-icons/fa";
+import Modal from './Modal';
 
 const Navbar = () => {
 
@@ -62,6 +63,7 @@ const Navbar = () => {
           <a className="">
             <img src={logo} alt='foodStuff' className='w-48' />
           </a>
+
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1 gap-4 text-lg">
@@ -82,8 +84,12 @@ const Navbar = () => {
               <span className="badge badge-sm indicator-item">0</span>
             </div>
           </div>
-          <a className="button"><FiPhoneCall />
-            Contact</a>
+          <button className="button"
+            onClick={() => document.getElementById('my_modal_3').showModal()}>
+            <FaRegUser />Login
+          </button>
+          <Modal />
+
         </div>
       </div>
     </header >
