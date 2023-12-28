@@ -4,9 +4,6 @@ import { FiFacebook } from "react-icons/fi";
 import { FaInstagram } from "react-icons/fa";
 import { FiYoutube } from "react-icons/fi";
 
-
-
-
 const Footer = () => {
   return (
     <div className="max-w-screen-2xl mx-auto bg-gradient-to-br from-[#CFFDFB] to-[#AF85E4]  ">
