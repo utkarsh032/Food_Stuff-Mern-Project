@@ -1,11 +1,15 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import logo from '/f--d_stuff.png'
 import { FaRegUser } from "react-icons/fa";
 import Modal from './Modal';
+import { AuthContext } from '../context/AuthProvider';
 
 const Navbar = () => {
 
   const [isSticky, setSticky] = useState(false)
+
+  const { user } = useContext(AuthContext)
+  console.log(user)
 
   useState(() => {
     const handleScroll = () => {
@@ -84,10 +88,12 @@ const Navbar = () => {
               <span className="badge badge-sm indicator-item">0</span>
             </div>
           </div>
-          <button className="button"
-            onClick={() => document.getElementById('my_modal_3').showModal()}>
+
+          {user ? <><p>LogOut</p></> : <button className="button"
+            onClick={() => document.getElementById('my_modal_5').showModal()}>
             <FaRegUser />Login
-          </button>
+          </button>}
+
           <Modal />
 
         </div>
