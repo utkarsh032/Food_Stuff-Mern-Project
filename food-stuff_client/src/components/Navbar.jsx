@@ -2,7 +2,8 @@ import React, { useContext, useState } from 'react'
 import logo from '/f--d_stuff.png'
 import { FaRegUser } from "react-icons/fa";
 import Modal from './Modal';
-import { AuthContext } from '../context/AuthProvider';
+import { AuthContext } from "../context/AuthProvider";
+import Profile from './Profile';
 
 const Navbar = () => {
 
@@ -89,10 +90,14 @@ const Navbar = () => {
             </div>
           </div>
 
-          {user ? <><p>LogOut</p></> : <button className="button"
-            onClick={() => document.getElementById('my_modal_5').showModal()}>
-            <FaRegUser />Login
-          </button>}
+          {
+            user ? <Profile user={user} /> : <button
+              onClick={() => document.getElementById("my_modal_5").showModal()}
+              className="btn flex items-center gap-2 button rounded-full px-6 bg-green text-white"
+            >
+              <FaRegUser /> Login
+            </button>
+          }
 
           <Modal />
 
