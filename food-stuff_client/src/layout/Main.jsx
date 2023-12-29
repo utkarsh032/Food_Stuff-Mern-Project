@@ -1,17 +1,23 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Outlet } from 'react-router-dom'
 import Navbar from '../components/Navbar'
 import '../App.css'
 import Footer from '../components/Footer'
+import LoadingAnimation from '../components/LoadingAnimation'
+import { AuthContext } from '../context/AuthProvider'
 
-export default function Main() {
+const Main = () => {
+  const { loading } = useContext(AuthContext)
   return (
     <div className="backgroundPrimary">
-      <Navbar />
-      <div className='min-h-screen'>
-        <Outlet />
-      </div>
-      <Footer />
+      {loading ? <LoadingAnimation /> :
+        <div className=''>
+          <Navbar />
+          <Outlet />
+          <Footer />
+        </div>}
     </div>
   )
 }
+
+export default Main;
