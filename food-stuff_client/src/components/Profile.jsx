@@ -10,9 +10,7 @@ const Profile = ({ user }) => {
   const { logOut } = useContext(AuthContext)
   const handleLogout = () => {
     logOut().then(() => {
-      // Sign-out successful.
     }).catch((error) => {
-      // An error happened.
     });
   }
   return (
