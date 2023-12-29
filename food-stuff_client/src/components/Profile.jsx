@@ -11,6 +11,7 @@ const Profile = ({ user }) => {
   const handleLogout = () => {
     logOut().then(() => {
     }).catch((error) => {
+
     });
   }
   return (
@@ -40,8 +41,8 @@ const Profile = ({ user }) => {
             className="drawer-overlay "
           ></label>
           <ul className="menu p-4 w-80 min-h-full bg-gradient-to-tr from-[#CFFDFB] to-[#AF85E4]  text-[#0E3E4E]">
-            {/* Sidebar content here */}
-            <li className="hover:bg-[#FF7A92] rounded-lg"> {/* <Profile user={user} />*/}
+
+            <li className="hover:bg-[#FF7A92] rounded-lg">
               <a href="/update-profile">Profile
               </a>
             </li>
