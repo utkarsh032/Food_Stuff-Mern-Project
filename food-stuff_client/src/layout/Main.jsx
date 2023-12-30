@@ -13,7 +13,9 @@ const Main = () => {
       {loading ? <LoadingAnimation /> :
         <div className=''>
           <Navbar />
-          <Outlet />
+          <div className='min-h-screen'>
+            <Outlet />
+          </div>
           <Footer />
         </div>}
     </div>

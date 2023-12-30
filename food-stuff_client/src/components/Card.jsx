@@ -7,6 +7,7 @@ const Card = ({ item }) => {
 
   const [isHeartFilled, setIsHeartFilled] = useState(false);
 
+
   const handleHeartClick = () => {
     setIsHeartFilled(!isHeartFilled);
   };
@@ -34,7 +35,7 @@ const Card = ({ item }) => {
         <p>{item.recipe}</p>
         <div className="card-actions justify-between items-center mt-2">
           <h5 className='font-semibold'><span>$</span>{item.price}</h5>
-          <button className="btn button">Buy Now</button>
+          <button className="btn button" >Add To Cart</button>
         </div>
       </div>
 
