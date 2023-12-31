@@ -32,10 +32,20 @@ async function run() {
     const menuCollections = client.db("foodStuff_client").collection('menu')
     const cartCollections = client.db("foodStuff_client").collection('cartItems')
 
+    // menu items
+
     app.get('/menu', async (req, res) => {
       const result = await menuCollections.find().toArray()
       res.send(result)
     })
+
+    // cart items
+    app.post('/carts', async (req, res) => {
+      const cartItem = req.body
+      const result = await cartCollections.insertOne(cartItem)
+      res.send(result)
+    })
+
     await client.db('admin').command({ ping: 1 })
     console.log("MongoDB server connected successfully!");
   } finally {

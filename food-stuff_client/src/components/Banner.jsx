@@ -43,7 +43,7 @@ function Banner() {
         </div>
         {/*Text */}
         <div className='md:w-1/2 space-y-7'>
-          <h2 className='md:text-5xl text-4xl font-bold  md:leading-snug leading-snug'>it's not just <span className='text-[#EB2424]'>Food</span>, It's an <span className='text-[#FC6464]'>Experience</span>.</h2>
+          <h2 className='md:text-5xl text-4xl font-bold  md:leading-snug leading-snug'>it's not just <span className='text-[#EB2424]'>Food,</span> It's an <span className='text-[#FC6464]'>Experience.</span></h2>
           <p className='text-xl text-[#0E3E4E]'>Where Each Plate Weaves a Story of Culinary Mastery and Passionate Craftsmanship.</p>
           <button className='button'>Order Now</button>
 
