@@ -14,7 +14,7 @@ app.get('/', (req, res) => {
 
 // mongodb.connect
 
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.6w7eemv.mongodb.net/?retryWrites=true&w=majority`;
 
 const client = new MongoClient(uri, {
@@ -44,6 +44,45 @@ async function run() {
       const cartItem = req.body
       const result = await cartCollections.insertOne(cartItem)
       res.send(result)
+    })
+
+    // cart using email
+    app.get('/carts', async (req, res) => {
+      const email = req.query.email
+      const filter = { email: email }
+      const result = await cartCollections.find(filter).toArray()
+      res.send(result)
+    })
+
+    // get specific cart
+    app.get('/carts/:id', async (req, res) => {
+      const id = req.params.id;
+      const filter = { _id: new ObjectId(id) }
+      const result = await cartCollections.findOne(filter);
+      res.send(result);
+    })
+
+    // delete item
+    app.delete('/carts/:id', async (req, res) => {
+      const id = req.params.id;
+      const filter = { _id: new ObjectId(id) }
+      const result = await cartCollections.deleteOne(filter);
+      res.send(result);
+    })
+
+    // update carts quantity
+    app.put("/carts/:id", async (req, res) => {
+      const id = req.params.id;
+      const { quantity } = req.body
+      const filter = { _id: new ObjectId(id) }
+      const options = { upsert: true };
+      const updateDoc = {
+        $set: {
+          quantity: parseInt(quantity, 10)
+        },
+      }
+
+      const result = await cartCollections.updateOne(filter, updateDoc, options);
     })
 
     await client.db('admin').command({ ping: 1 })

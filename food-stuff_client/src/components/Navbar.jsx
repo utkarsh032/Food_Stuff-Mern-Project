@@ -6,6 +6,7 @@ import { AuthContext } from "../context/AuthProvider";
 import Profile from './Profile';
 import { FaOpencart } from "react-icons/fa";
 import { Link } from 'react-router-dom';
+import useCart from '../hooks/useCart';
 
 const Navbar = () => {
 
@@ -13,6 +14,10 @@ const Navbar = () => {
 
   const { user } = useContext(AuthContext)
   console.log(user)
+
+  const [cart, refetch] = useCart()
+  console.log(cart)
+
 
   useState(() => {
     const handleScroll = () => {
@@ -90,7 +95,7 @@ const Navbar = () => {
             <div tabIndex={0} role="button" className="btn btn-ghost btn-circle mr-3 lg:flex hidden items-center justify-center  hover:bg-[#FF7A92]">
               <div className="indicator">
                 <FaOpencart className="indicator h-5 w-5 " />
-                <span className="bdge badge-sm indicator-item text-[#0E3E4E]">0</span>
+                <span className="bdge badge-sm indicator-item text-[#0E3E4E]">{cart.length || ' '}</span>
               </div>
             </div>
           </Link>
