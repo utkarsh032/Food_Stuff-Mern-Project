@@ -169,11 +169,14 @@ const CartView = () => {
           <p>Email: {user.email}</p>
           <p>UserId: {user.uid}</p>
         </div>
-        <div className='md:w-1/2 space-y-3'>
-          <h3 className='font-medium'>Shopping Details</h3>
-          <p>Total Item: {cart.length}</p>
-          <p>Total Amount: $ {cartSubTotal.toFixed(2)}</p>
-          <button className='btn rounded-full btn-md  bg-[#FF7A92] text-[#fff] border-none'>Checkout</button>
+        <div className='md:w-1/2 space-y-3  flex justify-between'>
+          <div></div>
+          <div className='md:w-1/2 space-y-3'>
+            <h3 className='font-medium'>Shopping Details</h3>
+            <p>Total Item: {cart.length}</p>
+            <p>Total Amount: $ {cartSubTotal.toFixed(2)}</p>
+            <button className='btn rounded-full btn-md  bg-[#FF7A92] text-[#fff] border-none'>Checkout</button>
+          </div>
         </div>
       </div>
     </div>

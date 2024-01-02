@@ -8,7 +8,7 @@ const PrivateRouter = ({ children }) => {
   const location = useLocation();
   if (loading) {
     return (
-      <P><LoadingAnimation /></P>
+      <div><LoadingAnimation /></div>
     )
   }
   if (user) {

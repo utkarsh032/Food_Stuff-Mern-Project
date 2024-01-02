@@ -63,9 +63,6 @@ const Signup = () => {
               <span className="label-text text-[#0E3E4E]">Password</span>
             </label>
             <input type="password" placeholder="password" className="input input-bordered text-[#fff]"  {...register("password")} />
-            <label className="label ">
-              <a href="#" className="label-text-alt link link-hover text-[#0E3E4E]">Forgot password?</a>
-            </label>
           </div>
 
 

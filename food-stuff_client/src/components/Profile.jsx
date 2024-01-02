@@ -4,7 +4,7 @@ import { AuthContext } from "../context/AuthProvider";
 import { AiOutlineLogout } from "react-icons/ai";
 import { AiTwotoneSetting } from "react-icons/ai";
 import { FaOpencart } from "react-icons/fa6";
-
+import { MdOutlineSpaceDashboard } from "react-icons/md";
 
 const Profile = ({ user }) => {
   const { logOut } = useContext(AuthContext)
@@ -29,7 +29,7 @@ const Profile = ({ user }) => {
                 user.photoURL ? <img
                   alt="Tailwind CSS Navbar component"
                   src={user.photoURL}
-                /> : <img alt="Tailwind CSS Navbar component" src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                /> : <img alt="Tailwind CSS Navbar component" src="https://i.gifer.com/79qS.gif" />
               }
             </div>
           </label>
@@ -47,12 +47,16 @@ const Profile = ({ user }) => {
               </a>
             </li>
             <li className="hover:bg-[#FF7A92] rounded-lg">
-              <a><FaOpencart />
+              <a href="/cart-view"><FaOpencart />
                 Order</a>
             </li>
             <li className="hover:bg-[#FF7A92] rounded-lg">
               <a><AiTwotoneSetting />
                 Setting</a>
+            </li>
+            <li className="hover:bg-[#FF7A92] rounded-lg">
+              <a href="/dashboard"><MdOutlineSpaceDashboard />
+                Dashboard</a>
             </li>
             <li className="hover:bg-[#FF7A92] rounded-lg">
               <a onClick={handleLogout}><AiOutlineLogout />Logout</a>
