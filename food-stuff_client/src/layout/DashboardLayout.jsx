@@ -15,6 +15,16 @@ import { AiOutlineLogout } from "react-icons/ai";
 
 import logo from '/f--d_stuff.png'
 
+const sharedLinks = (
+  <>
+    <li><Link to='/'><AiOutlineHome />Home</Link></li>
+    <li><Link to='/menu'><BiFoodMenu />Menu</Link></li>
+    <li><Link to='/menu'><MdOutlineTrackChanges />Orders Tracking</Link></li>
+    <li><Link to='menu/'><MdSupportAgent />Customer Support</Link></li>
+  </>
+)
+
+
 const DashboardLayout = () => {
   return (
     <div>
@@ -43,12 +53,11 @@ const DashboardLayout = () => {
             <li><Link to='/'><TbBrandBooking />Manage Bookings</Link></li>
             <li><Link to='/'><MdAddCircleOutline />Add Menu</Link></li>
             <li><Link to='/'><FaRegEdit />Manage Items</Link></li>
-            <li><Link to='/dashboard/users'><FaUsersViewfinder />Users</Link></li>
+            <li className='mb-3'><Link to='/dashboard/users' ><FaUsersViewfinder />Users</Link></li>
             <hr />
-            <li><Link to='/'><AiOutlineHome />Home</Link></li>
-            <li><Link to='/'><BiFoodMenu />Menu</Link></li>
-            <li><Link to='/'><MdOutlineTrackChanges />Orders Tracking</Link></li>
-            <li><Link to='/'><MdSupportAgent />Customer Support</Link></li>
+
+            {/*Links*/}
+            {sharedLinks}
           </ul>
 
         </div>
