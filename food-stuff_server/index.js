@@ -4,15 +4,10 @@ const cors = require("cors");
 const port = process.env.PORT || 3000;
 const mongoose = require("mongoose");
 require('dotenv').config()
-// middleware
+
 app.use(cors());
 app.use(express.json());
 
-// middleware
-app.use(cors());
-app.use(express.json());
-
-// mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@foodstuff.jgvytnl.mongodb.net/?retryWrites=true&w=majority
 mongoose
   .connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@foodstuff.jgvytnl.mongodb.net/foodStuff?retryWrites=true&w=majority`
   )
@@ -21,11 +16,12 @@ mongoose
   )
   .catch((error) => console.log("Error connecting to MongoDB", error));
 
-//   import routes here
 const menuRoutes = require('./api/routes/menuRoutes');
-const cartRoutes = require('./api/routes/cartRoutes')
+const cartRoutes = require('./api/routes/cartRoutes');
+const userRoutes = require('./api/routes/userRoutes');
 app.use('/menu', menuRoutes)
 app.use('/carts', cartRoutes)
+app.use('/users', userRoutes)
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
