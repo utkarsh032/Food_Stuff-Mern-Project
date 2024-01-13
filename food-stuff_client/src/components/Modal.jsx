@@ -1,53 +1,75 @@
-import React, { useContext, useState } from 'react'
-import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { FcGoogle } from "react-icons/fc";
-import { FaFacebookF } from "react-icons/fa";
+import React, { useContext, useState } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { FcGoogle } from 'react-icons/fc';
+import { FaFacebookF } from 'react-icons/fa';
 import { TbBrandGithubFilled } from "react-icons/tb";
-import { useForm } from "react-hook-form"
+
+import { useForm } from 'react-hook-form';
 import { AuthContext } from '../context/AuthProvider';
+import axios from 'axios';
 
 const Modal = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm()
+    reset,
+  } = useForm();
 
-  const { signUpWithGmail, login } = useContext(AuthContext)
-  const [errorMessage, setErrorMessage] = useState("");
+  const { signUpWithGmail, login } = useContext(AuthContext);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const location = useLocation();
   const navigate = useNavigate();
-  const from = location.state?.from?.pathname || "/";
-
+  const from = location.state?.from?.pathname || '/';
 
   const onSubmit = (data) => {
     const email = data.email;
     const password = data.password;
-    login(email, password).then((result) => {
-      const user = result.user;
-      alert("Login successfull");
-      document.getElementById("my_modal_5").close()
-      navigate(from, { replace: true })
-    }).catch((error) => {
-      const errorMessage = error.message;
-      setErrorMessage("Provide a correct email and password!")
-    })
+    login(email, password)
+      .then((result) => {
+        const user = result.user;
+        const userInfor = {
+          name: data.name,
+          email: data.email,
+        };
+        axios
+          .post('http://localhost:3000/users', userInfor)
+          .then((response) => {
+            alert('Signin successful!');
+            navigate(from, { replace: true });
+          });
+      })
+      .catch((error) => {
+        const errorMessage = error.message;
+        setErrorMessage('Please provide valid email & password!');
+      });
+    reset();
   };
 
-  const handleLogin = () => {
-    signUpWithGmail().then((result) => {
-      const user = result.user;
-      alert("Login successfull!")
-      navigate(from, { replace: true })
-    }).catch((error) => console.log(error))
-  }
+  const handleRegister = () => {
+    signUpWithGmail()
+      .then((result) => {
+        const user = result.user;
+        const userInfor = {
+          name: result?.user?.displayName,
+          email: result?.user?.email,
+        };
+        axios
+          .post('http://localhost:3000/users', userInfor)
+          .then((response) => {
+            alert('Signin successful!');
+            navigate('/');
+          });
+      })
+      .catch((error) => console.log(error));
+  };
 
   return (
-
     <dialog id="my_modal_5" className="modal modal-middle sm:modal-middle">
       <div className="modal-box backgroundPrimary text-[#0E3E4E]">
         <div className='modal-action flex flex-col justify-center mt-0'>
+
           <form onSubmit={handleSubmit(onSubmit)} className='card-body' method="dialog ">
             <button
               htmlFor="my_modal_5"
@@ -64,8 +86,6 @@ const Modal = () => {
               </label>
               <input type="email" placeholder="email" className="input input-bordered text-[#fff]" required {...register("email")} />
             </div>
-
-
 
             {/* password */}
             <div className="form-control">
@@ -101,7 +121,7 @@ const Modal = () => {
 
         <div className='text-center space-x-3  mt-5'>
 
-          <button className="btn btn-circle bg-[#fff] hover:bg-[#fff] border-none hover:scale-105 shadow-md" onClick={handleLogin}>
+          <button className="btn btn-circle bg-[#fff] hover:bg-[#fff] border-none hover:scale-105 shadow-md" onClick={handleRegister}>
             <FcGoogle className='h-6 w-6' />
           </button>
 
@@ -114,10 +134,9 @@ const Modal = () => {
           </button>
 
         </div>
-
       </div>
     </dialog>
-  )
-}
+  );
+};
 
-export default Modal
+export default Modal;

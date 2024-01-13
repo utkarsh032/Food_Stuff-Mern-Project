@@ -4,37 +4,53 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FaHeart } from 'react-icons/fa'
 import { AuthContext } from '../context/AuthProvider'
 import Swal from 'sweetalert2'
+import axios from 'axios';
+import useCart from '../hooks/useCart';
 
 
 
 const Card = ({ item }) => {
-  const { name, image, price, recipe, _id } = item
+  const { name, image, price, recipe, _id } = item;
+
+  const { user } = useContext(AuthContext);
+  const [cart, refetch] = useCart();
+  const navigate = useNavigate();
+  const location = useLocation();
+  // console.log(item)
   const [isHeartFilled, setIsHeartFilled] = useState(false);
-  const { user } = useContext(AuthContext)
 
-  const navigate = useNavigate()
-  const location = useLocation()
-
-  const handleCartAdded = (item) => {
-    if (user && user?.email) {
+  const handleHeartClick = () => {
+    setIsHeartFilled(!isHeartFilled);
+  };
+  const handleCartAdded = item => {
+    if (user && user.email) {
       const cartItem = { menuItemId: _id, name, quantity: 1, image, price, email: user.email }
-      fetch('http://localhost:3000/carts', {
-        method: "POST",
-        headers: {
-          'content-type': 'application/json'
-        },
-        body: JSON.stringify(cartItem)
-      }).then(res => res.json()).then(data => {
-        if (data.insertedId) {
+
+      axios.post('http://localhost:3000/carts', cartItem)
+        .then((response) => {
+          console.log(response);
+          if (response) {
+            refetch();
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: 'Food added on the cart.',
+              showConfirmButton: false,
+              timer: 1500
+            })
+          }
+        })
+        .catch((error) => {
+          // console.log(error.response.data.message);
+          const errorMessage = error.response.data.message;
           Swal.fire({
-            position: "top-end",
-            icon: "success",
-            title: "Added Successfully",
+            position: 'center',
+            icon: 'warning',
+            title: `${errorMessage}`,
             showConfirmButton: false,
             timer: 1500
-          });
-        }
-      })
+          })
+        });
     } else {
       Swal.fire({
         title: "Create an Account!",
@@ -52,10 +68,6 @@ const Card = ({ item }) => {
       });
     }
   }
-
-  const handleHeartClick = () => {
-    setIsHeartFilled(!isHeartFilled);
-  };
 
 
 

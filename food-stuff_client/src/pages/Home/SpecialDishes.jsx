@@ -19,6 +19,8 @@ const SampleNextArrow = (props) => {
   );
 };
 
+
+
 const SamplePrevArrow = (props) => {
   const { className, style, onClick } = props;
   return (
@@ -33,7 +35,6 @@ const SamplePrevArrow = (props) => {
 };
 
 const SpecialDishes = () => {
-
   const [recipes, setRecipes] = useState([]);
   const slider = React.useRef(null);
 
@@ -54,7 +55,7 @@ const SpecialDishes = () => {
     speed: 500,
     slidesToShow: 3,
     slidesToScroll: 3,
-    initialSlide: 0,
+    initialSlide: 1,
     responsive: [
       {
         breakpoint: 1024,
@@ -62,29 +63,30 @@ const SpecialDishes = () => {
           slidesToShow: 3,
           slidesToScroll: 3,
           infinite: true,
-          dots: true
-        }
+          dots: true,
+        },
       },
       {
         breakpoint: 970,
         settings: {
           slidesToShow: 2,
           slidesToScroll: 2,
-          initialSlide: 2
-        }
+          initialSlide: 2,
+        },
       },
       {
         breakpoint: 576,
         settings: {
           slidesToShow: 1,
-          slidesToScroll: 1
-        }
-      }
+          slidesToScroll: 1,
+        },
+      },
     ],
 
     nextArrow: <SampleNextArrow />,
     prevArrow: <SamplePrevArrow />,
-  }
+  };
+
   return (
     <div className='section-container bg-gradient-to-tr from-[#CFFDFB] to-[#AF85E4] max-w-screen-2xl mx-auto xl:px-24 px-4 relative' >
       <div className='text-left'>
@@ -95,11 +97,13 @@ const SpecialDishes = () => {
       {/*arrow btn*/}
 
       <div className="md:absolute right-3 top-8 mb-10 md:mr-24">
+
         <button onClick={() => slider?.current?.slickPrev()}
           className="bg-[#0E3E4E] hover:bg-[#FC6D87] text-[#fff] border-none btn p-2 rounded-full ml-5"
         >
           <FaAngleLeft className=" h-8 w-8 p-1" />
         </button>
+
         <button
           className="bg-[#FC6D87] hover:bg-[#FF7A92] text-[#fff] border-none btn p-2 rounded-full ml-5"
           onClick={() => slider?.current?.slickNext()}

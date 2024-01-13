@@ -11,7 +11,7 @@ const Profile = ({ user }) => {
   const handleLogout = () => {
     logOut().then(() => {
     }).catch((error) => {
-
+      console.log(error)
     });
   }
   return (

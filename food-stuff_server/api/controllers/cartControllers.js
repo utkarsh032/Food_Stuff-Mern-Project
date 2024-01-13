@@ -34,6 +34,7 @@ const addToCart = async (req, res) => {
     }
 }
 
+
 // delete a cart item
 const deleteCart = async (req, res) => {
     const cartId = req.params.id;
