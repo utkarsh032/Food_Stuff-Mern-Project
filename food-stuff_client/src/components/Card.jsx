@@ -4,25 +4,24 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FaHeart } from 'react-icons/fa'
 import { AuthContext } from '../context/AuthProvider'
 import Swal from 'sweetalert2'
+
 import axios from 'axios';
 import useCart from '../hooks/useCart';
 
-
-
 const Card = ({ item }) => {
-  const { name, image, price, recipe, _id } = item;
-
-  const { user } = useContext(AuthContext);
+  const { name, image, price, recipe, _id } = item
+  const { user } = useContext(AuthContext)
   const [cart, refetch] = useCart();
-  const navigate = useNavigate();
-  const location = useLocation();
-  // console.log(item)
+
+
   const [isHeartFilled, setIsHeartFilled] = useState(false);
 
-  const handleHeartClick = () => {
-    setIsHeartFilled(!isHeartFilled);
-  };
+  const navigate = useNavigate()
+  const location = useLocation()
+
+
   const handleCartAdded = item => {
+    // console.log(item);
     if (user && user.email) {
       const cartItem = { menuItemId: _id, name, quantity: 1, image, price, email: user.email }
 
@@ -34,40 +33,53 @@ const Card = ({ item }) => {
             Swal.fire({
               position: 'center',
               icon: 'success',
-              title: 'Food added on the cart.',
+              title: "Added Successfully",
               showConfirmButton: false,
-              timer: 1500
+              background: "#CF95FD",
+              color: "#0E3E4E",
+              iconColor: "#FF7A92",
+              timer: 400
             })
           }
         })
         .catch((error) => {
-          // console.log(error.response.data.message);
+          console.log(error.response.data.message);
           const errorMessage = error.response.data.message;
           Swal.fire({
             position: 'center',
             icon: 'warning',
             title: `${errorMessage}`,
             showConfirmButton: false,
-            timer: 1500
+            background: "#CF95FD",
+            color: "#0E3E4E",
+            iconColor: "#FF7A92",
+            timer: 400,
           })
         });
-    } else {
+    }
+    else {
       Swal.fire({
-        title: "Create an Account!",
-        text: "You havn't cart access!",
-        background: "#CF95FD",
-        icon: "warning",
+        title: 'Please login to add',
+        icon: 'warning',
         showCancelButton: true,
+        background: "#CF95FD",
+        iconColor: "#FF7A92",
+        color: "#0E3E4E",
         confirmButtonColor: "#FF7A92",
-        cancelButtonColor: "",
-        confirmButtonText: "Create"
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Login now!'
       }).then((result) => {
         if (result.isConfirmed) {
-          navigate('/signup', { state: { from: location } })
+          navigate('/login', { state: { from: location } })
         }
-      });
+      })
     }
   }
+
+
+  const handleHeartClick = () => {
+    setIsHeartFilled(!isHeartFilled);
+  };
 
 
 

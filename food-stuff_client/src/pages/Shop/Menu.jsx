@@ -14,33 +14,34 @@ const Menu = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://localhost:3000/menu")
-        const data = await response.json()
-        setMenu(data)
-        setFilteredItems(data)
+        const response = await fetch("http://localhost:3000/menu");
+        const data = await response.json();
+        setMenu(data);
+        setFilteredItems(data); // Initially, display all items
       } catch (error) {
-        console.log(error)
+        console.error("Error fetching data:", error);
       }
-    }
-    fetchData()
-  }, [])
-
-
+    };
+    fetchData();
+  }, []);
   // data based on category
 
   const filterItems = (category) => {
-    const filtered = category === "all" ? menu : menu.filter((item) => item.category === category)
-    setFilteredItems(filtered)
-    setSelectedCategory(category)
-    setCurrentPage(1)
-  }
+    const filtered =
+      category === "all"
+        ? menu
+        : menu.filter((item) => item.category === category);
 
-  // show all
+    setFilteredItems(filtered);
+    setSelectedCategory(category);
+    setCurrentPage(1);
+  };
+
   const showAll = () => {
-    setFilteredItems(menu)
-    setSelectedCategory("all")
-    setCurrentPage(1)
-  }
+    setFilteredItems(menu);
+    setSelectedCategory("all");
+    setCurrentPage(1); 
+  };
 
   const handleSortChange = (option) => {
     setSortOption(option);
@@ -128,8 +129,8 @@ const Menu = () => {
         {/* product card */}
 
         <div className='grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4 py-6'>
-          {currentItems.map((item, index) => (
-            <Card key={index} item={item} />
+          {currentItems.map((item) => (
+            <Card key={item._id} item={item} />
           ))}
         </div>
       </div>

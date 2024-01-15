@@ -10,7 +10,7 @@ import CartView from "../pages/Shop/CartView";
 import DashboardLayout from "../layout/DashboardLayout";
 import Dashboard from "../pages/dashboard/admin/Dashboard";
 import Users from "../pages/dashboard/admin/Users";
-import LogIn from "../components/Login";
+import LogIn from "../components/LogIn";
 
 const router = createBrowserRouter([
   {

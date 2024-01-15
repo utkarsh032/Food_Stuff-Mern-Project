@@ -6,8 +6,6 @@ import { TbBrandGithubFilled } from "react-icons/tb";
 import { useForm } from "react-hook-form"
 import Modal from './Modal';
 import { AuthContext } from '../context/AuthProvider';
-import useAxiosPublic from "../hooks/useAxiosPublic";
-
 
 const Signup = () => {
   const {
@@ -16,8 +14,8 @@ const Signup = () => {
     formState: { errors },
   } = useForm();
 
-  const { signUpWithGmail, createUser, updateUserProfile } = useContext(AuthContext);
-  const axiosPublic = useAxiosPublic();
+  const { createUser, login } = useContext(AuthContext);
+
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -26,48 +24,18 @@ const Signup = () => {
   const onSubmit = (data) => {
     const email = data.email;
     const password = data.password;
-    createUser(email, password)
-      .then((result) => {
-        const user = result.user;
-        updateUserProfile(data.email, data.photoURL).then(() => {
-          const userInfor = {
-            name: data.name,
-            email: data.email,
-          };
-          axiosPublic.post("/users", userInfor)
-            .then((response) => {
-              // console.log(response);
-              alert("Signin successful!");
-              navigate(from, { replace: true });
-            });
-        });
-      })
+    createUser(email, password).then((result) => {
+      // Signed up 
+      const user = result.user;
+      alert("Account creation successfully done!")
+      document.getElementById("my_modal_5").close()
+      navigate(from, { replace: true })
+    })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        // ..
-      });
-  };
-
-  // google logging
-  const handleRegister = () => {
-    signUpWithGmail()
-      .then((result) => {
-        const user = result.user;
-        const userInfor = {
-          name: result?.user?.displayName,
-          email: result?.user?.email,
-        };
-        axiosPublic
-          .post("/users", userInfor)
-          .then((response) => {
-            // console.log(response);
-            alert("Signin successful!");
-            navigate("/");
-          });
       })
-      .catch((error) => console.log(error));
-  };
+  }
 
 
   return (
@@ -79,19 +47,6 @@ const Signup = () => {
             to='/'
             className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 hover:bg-[#FF7A92] hover:text-[#fff] ">✕</Link>
           <h3 className='font-bold text-2xl text-center'>Create an Account!</h3>
-
-          {/* name */}
-          <div className="form-control">
-            <label className="label">
-              <span className="label-text  text-[#0E3E4E]">Name</span>
-            </label>
-            <input
-              type="name"
-              placeholder="Your name"
-              className="input input-bordered text-[#fff]"
-              {...register("name")}
-            />
-          </div>
 
           {/* email */}
           <div className="form-control ">
@@ -127,7 +82,7 @@ const Signup = () => {
 
         <div className='text-center space-x-3  mb-5'>
 
-          <button onClick={handleRegister} className="btn btn-circle bg-[#fff] hover:bg-[#fff] border-none hover:scale-105 shadow-md" >
+          <button className="btn btn-circle bg-[#fff] hover:bg-[#fff] border-none hover:scale-105 shadow-md" >
             <FcGoogle className='h-6 w-6' />
           </button>
 

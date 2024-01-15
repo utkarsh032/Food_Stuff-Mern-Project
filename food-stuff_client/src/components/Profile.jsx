@@ -11,9 +11,10 @@ const Profile = ({ user }) => {
   const handleLogout = () => {
     logOut().then(() => {
     }).catch((error) => {
-      console.log(error)
+
     });
   }
+
   return (
     <div>
       <div className="drawer drawer-end z-50 ">
