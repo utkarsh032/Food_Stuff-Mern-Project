@@ -1,8 +1,8 @@
 import React, { useContext, useState } from 'react'
-import useCart from '../../hooks/useCart'
 import { MdDelete } from "react-icons/md";
 import Swal from 'sweetalert2'
 import { AuthContext } from '../../context/AuthProvider';
+import useCart from '../../hooks/useCart';
 
 
 const CartView = () => {
@@ -16,61 +16,79 @@ const CartView = () => {
   }
 
   // decrease items
-  const handleIncrease = (item) => {
-    fetch(`http://localhost:3000/carts/${item._id}`, {
-      method: 'PUT',
-      headers: {
-        "Content-Type": "application/json; charset=utf-8",
-      },
-      body: JSON.stringify({ quantity: item.quantity + 1 })
-    }).then(res => res.json()).then(data => {
-      const updatedCart = cartItems.map((cartItem) => {
-        if (cartItem.id === item.id) {
-          return {
-            ...cartItem,
-            quantity: cartItem.quantity + 1,
-          }
-        }
-        return cartItem
-      })
-      refetch()
-      setCartItems(updatedCart)
-    })
-    refetch()
-  }
-
-  // decrease items
-  const handleDecrease = (item) => {
-    if (item.quantity > 0) {
-      fetch(`http://localhost:3000/carts/${item._id}`, {
-        method: 'PUT',
+  const handleIncrease = async (item) => {
+    try {
+      const response = await fetch(`http://localhost:3000/carts/${item._id}`, {
+        method: "PUT",
         headers: {
-          "Content-Type": "application/json; charset=utf-8",
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify({ quantity: item.quantity - 1 })
-      }).then(res => res.json()).then(data => {
+        body: JSON.stringify({ quantity: item.quantity + 1 }),
+      });
+
+      if (response.ok) {
         const updatedCart = cartItems.map((cartItem) => {
           if (cartItem.id === item.id) {
             return {
               ...cartItem,
-              quantity: cartItem.quantity - 1,
-            }
+              quantity: cartItem.quantity + 1,
+            };
           }
-          return cartItem
-        })
-        refetch()
-        setCartItems(updatedCart)
-      })
-      refetch()
-    } else {
-      alert('T his product is removed from cart')
+          return cartItem;
+        });
+        await refetch();
+        setCartItems(updatedCart);
+      } else {
+        console.error("Failed to update quantity");
+      }
+    } catch (error) {
+      console.error("Error updating quantity:", error);
     }
-  }
+  };
+
+  // decrease items
+  const handleDecrease = async (item) => {
+    if (item.quantity > 1) {
+      try {
+        const response = await fetch(
+          `http://localhost:3000/carts/${item._id}`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ quantity: item.quantity - 1 }),
+          }
+        );
+
+        if (response.ok) {
+          const updatedCart = cartItems.map((cartItem) => {
+            if (cartItem.id === item.id) {
+              return {
+                ...cartItem,
+                quantity: cartItem.quantity - 1,
+              };
+            }
+            return cartItem;
+          });
+          await refetch();
+          setCartItems(updatedCart);
+        } else {
+          console.error("Failed to update quantity");
+        }
+      } catch (error) {
+        console.error("Error updating quantity:", error);
+      }
+    }
+  };
+
 
   // total price
   const cartSubTotal = cart.reduce((total, item) => {
     return total + calculatePrice(item)
   }, 0)
+
+  const orderTotal = cartSubTotal;
 
 
   // delete item
@@ -174,7 +192,7 @@ const CartView = () => {
           <div className='md:w-1/2 space-y-3'>
             <h3 className='font-medium'>Shopping Details</h3>
             <p>Total Item: {cart.length}</p>
-            <p>Total Amount: $ {cartSubTotal.toFixed(2)}</p>
+            <p>Total Amount: $ {orderTotal.toFixed(2)}</p>
             <button className='btn rounded-full btn-md  bg-[#FF7A92] text-[#fff] border-none'>Checkout</button>
           </div>
         </div>

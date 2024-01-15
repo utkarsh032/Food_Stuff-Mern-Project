@@ -14,7 +14,7 @@ const Menu = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://localhost:3000/menu")
+        const response = await fetch("http://localhost:5000/menu")
         const data = await response.json()
         setMenu(data)
         setFilteredItems(data)
