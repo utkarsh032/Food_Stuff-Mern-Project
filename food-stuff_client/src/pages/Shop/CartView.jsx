@@ -107,8 +107,8 @@ const CartView = () => {
         fetch(`http://localhost:5000/carts/${item._id}`, {
           method: 'DELETE'
         }).then(res => res.json()).then(data => {
+          refetch()
           if (data.deletedCount > 0) {
-            refetch()
             Swal.fire({
               background: "#CF95FD",
               title: "Deleted!",

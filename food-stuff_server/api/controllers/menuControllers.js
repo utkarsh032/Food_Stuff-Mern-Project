@@ -9,6 +9,4 @@ const getAllMenuItems = async (req, res) => {
   }
 }
 
-module.exports = {
-  getAllMenuItems
-}
+module.exports = { getAllMenuItems }

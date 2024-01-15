@@ -16,7 +16,6 @@ const menuSchema = new Schema({
 
 })
 
-// modal
 const Menu = mongoose.model('Menu', menuSchema)
 module.exports = Menu
 
