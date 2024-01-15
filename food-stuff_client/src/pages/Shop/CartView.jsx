@@ -81,7 +81,8 @@ const CartView = () => {
       icon: "warning",
       showCancelButton: true,
       background: "#CF95FD",
-      confirmButtonColor: "#FF7A92",
+      color: "#0E3E4E",
+      iconColor: "#FF7A92",
       cancelButtonColor: "",
       confirmButtonText: "Yes, delete it!"
     }).then((result) => {
@@ -89,10 +90,11 @@ const CartView = () => {
         fetch(`http://localhost:3000/carts/${item._id}`, {
           method: 'DELETE'
         }).then(res => res.json()).then(data => {
+          refetch()
           if (data.deletedCount > 0) {
-            refetch()
             Swal.fire({
               background: "#CF95FD",
+              color: "#0E3E4E",
               title: "Deleted!",
               text: "Your file has been deleted.",
               icon: "success"

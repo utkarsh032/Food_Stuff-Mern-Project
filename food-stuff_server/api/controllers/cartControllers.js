@@ -20,7 +20,7 @@ const addToCart = async (req, res) => {
         // exiting menu item
         const existingCartItem = await Carts.findOne({ menuItemId });
         if (existingCartItem) {
-            return res.status(400).json({ message: "Product already exists in the cart!" });
+            return res.status(400).json({ message: "Product already added" });
         }
 
         const cartItem = await Carts.create({
@@ -33,7 +33,6 @@ const addToCart = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 }
-
 
 // delete a cart item
 const deleteCart = async (req, res) => {

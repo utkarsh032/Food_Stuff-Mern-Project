@@ -3,15 +3,18 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FaFacebookF, FaGithub, FaGoogle } from "react-icons/fa";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../context/AuthProvider";
-import useAxiosPublic from "../hooks/useAxiosPublic";
-import axios from "axios";
 
+// bg-gradient-to-tr from-[#CFFDFB] to-[#AF85E4] h-screen
+// hover:bg-[#FF7A92]
+// text-[#0E3E4E]
+// text-[#EB2424]
+// [#316FF6]
+// 
 
 const LogIn = () => {
   const [errorMessage, seterrorMessage] = useState("");
   const { signUpWithGmail, login } = useContext(AuthContext);
 
-  const axiosPublic = useAxiosPublic();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -24,29 +27,24 @@ const LogIn = () => {
     formState: { errors },
   } = useForm();
 
-
   const onSubmit = (data) => {
     const email = data.email;
     const password = data.password;
     login(email, password)
       .then((result) => {
+        // Signed in
         const user = result.user;
-        const userInfor = {
-          name: data.name,
-          email: data.email,
-        };
-        axiosPublic
-          .post("/users", userInfor)
-          .then((response) => {
-            alert("Signin successful!");
-            navigate(from, { replace: true });
-          });
+        // console.log(user);
+        alert("Login successful!");
+        navigate(from);
+        // ...
       })
       .catch((error) => {
         const errorMessage = error.message;
         seterrorMessage("Please provide valid email & password!");
       });
     reset()
+
   };
 
   // login with google
@@ -54,20 +52,10 @@ const LogIn = () => {
     signUpWithGmail()
       .then((result) => {
         const user = result.user;
-        const userInfor = {
-          name: result?.user?.displayName,
-          email: result?.user?.email,
-        };
-        axiosPublic
-          .post("/users", userInfor)
-          .then((response) => {
-            alert("SignUp successful!");
-            navigate("/");
-          });
+        navigate(from);
       })
       .catch((error) => console.log(error));
   };
-
   return (
     <div className="max-w-md  shadow w-full mx-auto flex items-center justify-center  text-[#0E3E4E]">
       <div className="mb-5 bg-gradient-to-tr from-[#CFFDFB] to-[#AF85E4] my-20 rounded-2xl">
