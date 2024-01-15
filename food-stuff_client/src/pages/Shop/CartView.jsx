@@ -18,7 +18,7 @@ const CartView = () => {
   // decrease items
   const handleIncrease = async (item) => {
     try {
-      const response = await fetch(`http://localhost:3000/carts/${item._id}`, {
+      const response = await fetch(`http://localhost:5000/carts/${item._id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -51,7 +51,7 @@ const CartView = () => {
     if (item.quantity > 1) {
       try {
         const response = await fetch(
-          `http://localhost:3000/carts/${item._id}`,
+          `http://localhost:5000/carts/${item._id}`,
           {
             method: "PUT",
             headers: {
@@ -104,7 +104,7 @@ const CartView = () => {
       confirmButtonText: "Yes, delete it!"
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:3000/carts/${item._id}`, {
+        fetch(`http://localhost:5000/carts/${item._id}`, {
           method: 'DELETE'
         }).then(res => res.json()).then(data => {
           if (data.deletedCount > 0) {
