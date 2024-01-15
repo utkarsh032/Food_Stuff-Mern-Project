@@ -3,6 +3,8 @@ import { MdDelete } from "react-icons/md";
 import Swal from 'sweetalert2'
 import { AuthContext } from '../../context/AuthProvider';
 import useCart from '../../hooks/useCart';
+import { Link } from 'react-router-dom'
+
 
 
 const CartView = () => {
@@ -134,69 +136,75 @@ const CartView = () => {
       </div>
 
       {/* Table*/}
+      {
+        (cart.length > 0) ? <div>
+          <div className='section-container bg-gradient-to-br from-[#CFFDFB] to-[#AF85E4]' >
+            <div className="overflow-x-auto  text-[#0E3E4E]">
+              <table className="table">
+                {/* head */}
+                <thead className='bg-[#FF7A92] text-[#fff]'>
+                  <tr>
+                    <th>#</th>
+                    <th>Food</th>
+                    <th>Item Name</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
 
-      <div className='section-container bg-gradient-to-br from-[#CFFDFB] to-[#AF85E4]' >
-        <div className="overflow-x-auto  text-[#0E3E4E]">
-          <table className="table">
-            {/* head */}
-            <thead className='bg-[#FF7A92] text-[#fff]'>
-              <tr>
-                <th>#</th>
-                <th>Food</th>
-                <th>Item Name</th>
-                <th>Quantity</th>
-                <th>Price</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              {/* row 1 */}
-              {cart.map((item, index) => (
-                <tr key={index}>
-                  <td>{index + 1}</td>
-                  <td>
-                    <div className="flex items-center gap-3">
-                      <div className="avatar">
-                        <div className="mask mask-squircle w-12 h-12">
-                          <img src={item.image} alt={item.title} />
+                <tbody>
+                  {/* row 1 */}
+                  {cart.map((item, index) => (
+                    <tr key={index}>
+                      <td>{index + 1}</td>
+                      <td>
+                        <div className="flex items-center gap-3">
+                          <div className="avatar">
+                            <div className="mask mask-squircle w-12 h-12">
+                              <img src={item.image} alt={item.title} />
+                            </div>
+                          </div>
                         </div>
-                      </div>
-                    </div>
-                  </td>
-                  <td className="font-bold">{item.name}</td>
-                  <td> <button className='btn btn-xs bg-[#FF7A92] text-[#fff] border-none' onClick={() => handleDecrease(item)}>-</button>
-                    <input type='number' value={item.quantity} onChange={() => console.log(item.quantity)} className='w-10 mx-2 text-center overflow-hidden bg-transparent appearance-none' />
-                    <button className='btn btn-xs  bg-[#FF7A92] text-[#fff] border-none' onClick={() => handleIncrease(item)}>+</button></td>
-                  <td>{calculatePrice(item).toFixed(2)}</td>
-                  <th><button className="btn rounded-full btn-md  bg-[#FF7A92] text-[#fff] border-none" onClick={() => handleDelete(item)}><MdDelete />
-                  </button></th>
-                </tr>
-              ))}
-            </tbody>
-            {/* foot */}
-          </table>
-        </div>
-      </div>
-
-      {/*Customer details */}
-      <div className='my-12 section-container text-[#0E3E4E] flex  flex-col md:flex-row justify-between items-start'>
-        <div className='md:w-1/2 space-y-3'>
-          <h3 className='font-medium'>Customer Details</h3>
-          <p>Name: {user.displayName}</p>
-          <p>Email: {user.email}</p>
-          <p>UserId: {user.uid}</p>
-        </div>
-        <div className='md:w-1/2 space-y-3  flex justify-between'>
-          <div></div>
-          <div className='md:w-1/2 space-y-3'>
-            <h3 className='font-medium'>Shopping Details</h3>
-            <p>Total Item: {cart.length}</p>
-            <p>Total Amount: $ {orderTotal.toFixed(2)}</p>
-            <button className='btn rounded-full btn-md  bg-[#FF7A92] text-[#fff] border-none'>Checkout</button>
+                      </td>
+                      <td className="font-bold">{item.name}</td>
+                      <td> <button className='btn btn-xs bg-[#FF7A92] text-[#fff] border-none' onClick={() => handleDecrease(item)}>-</button>
+                        <input type='number' value={item.quantity} onChange={() => console.log(item.quantity)} className='w-10 mx-2 text-center overflow-hidden bg-transparent appearance-none' />
+                        <button className='btn btn-xs  bg-[#FF7A92] text-[#fff] border-none' onClick={() => handleIncrease(item)}>+</button></td>
+                      <td>{calculatePrice(item).toFixed(2)}</td>
+                      <th><button className="btn rounded-full btn-md  bg-[#FF7A92] text-[#fff] border-none" onClick={() => handleDelete(item)}><MdDelete />
+                      </button></th>
+                    </tr>
+                  ))}
+                </tbody>
+                {/* foot */}
+              </table>
+            </div>
           </div>
+          {/*Customer details */}
+          <div className='my-12 section-container text-[#0E3E4E] flex  flex-col md:flex-row justify-between items-start'>
+            <div className='md:w-1/2 space-y-3'>
+              <h3 className='font-medium'>Customer Details</h3>
+              <p>Name: {user.displayName}</p>
+              <p>Email: {user.email}</p>
+              <p>UserId: {user.uid}</p>
+            </div>
+            <div className='md:w-1/2 space-y-3  flex justify-between'>
+              <div></div>
+              <div className='md:w-1/2 space-y-3'>
+                <h3 className='font-medium'>Shopping Details</h3>
+                <p>Total Item: {cart.length}</p>
+                <p>Total Amount: $ {orderTotal.toFixed(2)}</p>
+                <button className='btn rounded-full btn-md  bg-[#FF7A92] text-[#fff] border-none'>Checkout</button>
+              </div>
+            </div>
+          </div>
+        </div> : <div className='text-center text-2xl font-bold text-[#0E3E4E] '>
+          <p className='animate-bounce'>GO TO <Link to='/menu'><button className='text-[#FF7A92] animate-pulse'>ORDER</button></Link>
+          </p>
+          <hr />
         </div>
-      </div>
+      }
     </div>
   )
 }
