@@ -10,22 +10,26 @@ import useAxiosPublic from "../hooks/useAxiosPublic";
 
 
 const Signup = () => {
+  const { signUpWithGmail, createUser, updateUserProfile } =
+    useContext(AuthContext);
+  const axiosPublic = useAxiosPublic();
+
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const from = location.state?.from?.pathname || "/";
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  const { signUpWithGmail, createUser, updateUserProfile } = useContext(AuthContext);
-  const axiosPublic = useAxiosPublic();
-
-  const location = useLocation();
-  const navigate = useNavigate();
-  const from = location.state?.from?.pathname || "/";
 
   const onSubmit = (data) => {
     const email = data.email;
     const password = data.password;
+    console.log(email, password)
     createUser(email, password)
       .then((result) => {
         const user = result.user;
@@ -36,8 +40,8 @@ const Signup = () => {
           };
           axiosPublic.post("/users", userInfor)
             .then((response) => {
-              // console.log(response);
-              alert("Signin successful!");
+              console.log(response);
+              alert("SignUp successful!");
               navigate(from, { replace: true });
             });
         });
@@ -45,7 +49,6 @@ const Signup = () => {
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        // ..
       });
   };
 
@@ -62,7 +65,7 @@ const Signup = () => {
           .post("/users", userInfor)
           .then((response) => {
             // console.log(response);
-            alert("Signin successful!");
+            alert("SignIn successful!");
             navigate("/");
           });
       })

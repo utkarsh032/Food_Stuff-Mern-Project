@@ -56,7 +56,7 @@ const Modal = () => {
           email: result?.user?.email,
         };
         axios
-          .post('http://localhost:3000/users', userInfor)
+          .post('http://localhost:5000/users', userInfor)
           .then((response) => {
             alert('Signin successful!');
             navigate('/');

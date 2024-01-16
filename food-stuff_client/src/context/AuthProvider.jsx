@@ -1,48 +1,46 @@
-import React, { createContext, useEffect, useState } from 'react'
-import { GoogleAuthProvider, createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
-import app from "../firebase/firebase.config"
+/* eslint-disable react/prop-types */
+import React from 'react';
+import { createContext } from 'react';
+import { GoogleAuthProvider, createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from 'firebase/auth';
+import { useState } from 'react';
+import { useEffect } from 'react';
+import app from '../firebase/firebase.config';
 import axios from 'axios';
 
 export const AuthContext = createContext();
 const auth = getAuth(app);
 const googleProvider = new GoogleAuthProvider();
 
-
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // create an account
   const createUser = (email, password) => {
     setLoading(true);
-    return createUserWithEmailAndPassword(auth, email, password)
+    return createUserWithEmailAndPassword(auth, email, password);
   }
 
-  // signup with gmail
   const signUpWithGmail = () => {
     setLoading(true);
-    return signInWithPopup(auth, googleProvider)
+    return signInWithPopup(auth, googleProvider);
   }
 
-  // login using email & password
   const login = (email, password) => {
     return signInWithEmailAndPassword(auth, email, password);
   }
 
-  // logout 
   const logOut = () => {
     localStorage.removeItem('genius-token');
     return signOut(auth);
   }
 
-  // update profile
+  // update your profile
   const updateUserProfile = (name, photoURL) => {
     return updateProfile(auth.currentUser, {
       displayName: name, photoURL: photoURL
     })
   }
 
-  // check signed-in user
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, currentUser => {
       // console.log(currentUser);
@@ -70,18 +68,19 @@ const AuthProvider = ({ children }) => {
 
   const authInfo = {
     user,
+    loading,
     createUser,
-    signUpWithGmail,
     login,
     logOut,
-    updateUserProfile,
-    loading
+    signUpWithGmail,
+    updateUserProfile
   }
+
   return (
     <AuthContext.Provider value={authInfo}>
       {children}
     </AuthContext.Provider>
-  )
-}
+  );
+};
 
-export default AuthProvider
+export default AuthProvider;
