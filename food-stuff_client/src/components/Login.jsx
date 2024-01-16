@@ -7,7 +7,7 @@ import useAxiosPublic from "../hooks/useAxiosPublic";
 import axios from "axios";
 
 
-const LogIn = () => {
+const Login = () => {
   const [errorMessage, seterrorMessage] = useState("");
   const { signUpWithGmail, login } = useContext(AuthContext);
 
@@ -160,4 +160,4 @@ const LogIn = () => {
   )
 }
 
-export default LogIn
+export default Login

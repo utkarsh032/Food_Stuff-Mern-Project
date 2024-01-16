@@ -14,6 +14,9 @@ import { MdOutlineDashboardCustomize } from "react-icons/md";
 import { AiOutlineLogout } from "react-icons/ai";
 
 import logo from '/f--d_stuff.png'
+import Login from '../components/Login'
+import useAdmin from '../hooks/useAdmin';
+import useAuth from '../hooks/useAuth';
 
 const sharedLinks = (
   <>
@@ -26,11 +29,14 @@ const sharedLinks = (
 
 
 const DashboardLayout = () => {
+  const { loading } = useAuth()
+  const [isAdmin, isAdminLoading] = useAdmin()
+
   return (
     <div>
 
       {/*drawer*/}
-      <div className="drawer  sm:drawer-open bg-gradient-to-tr from-[#CFFDFB] to-[#AF85E4]  text-[#0E3E4E]">
+      {isAdmin ? <div className="drawer  sm:drawer-open bg-gradient-to-tr from-[#CFFDFB] to-[#AF85E4]  text-[#0E3E4E]">
         <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content flex flex-col sm:items-start sm:justify-start my-2">
           {/* Page content here */}
@@ -61,7 +67,9 @@ const DashboardLayout = () => {
           </ul>
 
         </div>
-      </div>
+      </div> : <Login />
+      }
+
     </div>
   )
 }

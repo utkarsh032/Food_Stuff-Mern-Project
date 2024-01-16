@@ -64,7 +64,6 @@ const Signup = () => {
         axiosPublic
           .post("/users", userInfor)
           .then((response) => {
-            // console.log(response);
             alert("SignIn successful!");
             navigate("/");
           });

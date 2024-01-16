@@ -2,24 +2,40 @@ import { useQuery } from '@tanstack/react-query'
 import React from 'react'
 import { ImBin } from "react-icons/im";
 import { FaRegUser } from "react-icons/fa";
+import useAxiosSecure from '../../../hooks/useAxiosSecure';
 
 const Users = () => {
+  const axiosSecure = useAxiosSecure();
   const { refetch, data: users = [] } = useQuery({
-    queryKey: ['users'],
+    queryKey: ["users"],
     queryFn: async () => {
-      const res = await fetch(`http://localhost:5000/users`)
-      return res.json()
+      const res = await axiosSecure.get("/users");
+      return res.data;
     },
-  })
-  console.log(users)
+  });
+
+  // handleMakeAdmin
+  const handleMakeAdmin = (user) => {
+    axiosSecure.patch(`/users/admin/${user._id}`).then((res) => {
+      alert(`${user.name} is now admin`);
+      refetch();
+    });
+  };
+
+  // handleDeleteUser
+  const handleDeleteUser = user => {
+    axiosSecure.delete(`/users/${user._id}`).then(res => {
+      alert(`${user.name} is removed from database`);
+      refetch();
+    })
+  }
+
   return (
     <div>
       <div className='flex items-center justify-between m-4'>
         <h5>USERS</h5>
         <h5>Total Users :{users.length}</h5>
       </div>
-
-
       {/* Table */}
       <div className="overflow-x-auto">
         <table className="table  md:w-[870px]">
@@ -40,16 +56,16 @@ const Users = () => {
                 <td>{user.name}</td>
                 <td>{user.email}</td>
 
-                <td>{user.role === "admin" ? (
-                  "Admin"
-                ) : (<button className='btn rounded-full text-[#fff] bg-[#FF7A92] border-none'><FaRegUser /></button>)}</td>
+                <td>{user.role === "admin" ? "Admin" : (<button onClick={() => handleMakeAdmin(user)} className='btn rounded-full text-[#fff] bg-[#FF7A92] border-none'><FaRegUser /></button>)}
+                </td>
 
-                <td><button className='btn rounded-full text-[#fff] bg-[#FF7A92] border-none '><ImBin /></button></td>
+                <td><button onClick={() => handleDeleteUser(user)} className='btn rounded-full text-[#fff] bg-[#FF7A92] border-none '><ImBin /></button></td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
+
     </div>
   )
 }

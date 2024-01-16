@@ -2,21 +2,17 @@ import React, { useContext, useState } from 'react'
 import logo from '/f--d_stuff.png'
 import { FaRegUser } from "react-icons/fa";
 import Modal from './Modal';
-import { AuthContext } from "../context/AuthProvider";
 import Profile from './Profile';
 import { FaOpencart } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 import useCart from '../hooks/useCart';
+import useAuth from '../hooks/useAuth';
 
 const Navbar = () => {
 
   const [isSticky, setSticky] = useState(false)
-
-  const { user } = useContext(AuthContext)
-  console.log(user)
-
+  const {user, loading} = useAuth();
   const [cart, refetch] = useCart()
-  console.log(cart)
 
 
   useState(() => {
