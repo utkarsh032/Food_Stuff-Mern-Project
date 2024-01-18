@@ -36,7 +36,7 @@ const Card = ({ item }) => {
               icon: 'success',
               title: 'Food added on the cart.',
               showConfirmButton: false,
-              timer: 1500
+              timer: 500
             })
           }
         })
@@ -48,7 +48,7 @@ const Card = ({ item }) => {
             icon: 'warning',
             title: `${errorMessage}`,
             showConfirmButton: false,
-            timer: 1500
+            timer: 500
           })
         });
     } else {
@@ -97,7 +97,6 @@ const Card = ({ item }) => {
           <button className="btn button" onClick={() => handleCartAdded(item)}>Add To Cart</button>
         </div>
       </div>
-
     </div>
   )
 }

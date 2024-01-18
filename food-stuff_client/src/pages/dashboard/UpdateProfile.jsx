@@ -10,7 +10,7 @@ const UpdateProfile = () => {
     formState: { errors },
     handleSubmit,
   } = useForm()
-
+  
   const location = useLocation();
   const navigate = useNavigate();
   const from = location.state?.from?.pathname || "/";
@@ -20,6 +20,7 @@ const UpdateProfile = () => {
     const photoURL = data.photoURL;
     updateUserProfile(name, photoURL).then(() => {
       navigate(from, { replace: true })
+
     }).catch((error) => {
 
     })
