@@ -10,7 +10,6 @@ import { BiFoodMenu } from "react-icons/bi";
 import { MdOutlineTrackChanges } from "react-icons/md";
 import { MdSupportAgent } from "react-icons/md";
 import { MdOutlineDashboardCustomize } from "react-icons/md";
-import { GiReturnArrow } from "react-icons/gi";
 import { MdOutlineAdsClick } from "react-icons/md";
 
 
@@ -18,8 +17,8 @@ import { AiOutlineLogout } from "react-icons/ai";
 
 import logo from '/f--d_stuff.png'
 import Login from '../components/Login'
-import useAdmin from '../hooks/useAdmin';
-import useAuth from '../hooks/useAuth';
+import useAdmin from '../hooks/useAdmin'
+import useAuth from '../hooks/useAuth'
 
 const sharedLinks = (
   <>
@@ -39,7 +38,7 @@ const DashboardLayout = () => {
     <div>
 
       {/*drawer*/}
-      {isAdmin ? <div className="drawer  sm:drawer-open bg-gradient-to-tr from-[#CFFDFB] to-[#AF85E4]  text-[#0E3E4E]">
+      {isAdmin ? <div className="drawer bg-gradient-to-tr from-[#CFFDFB] to-[#AF85E4]   sm:drawer-open  text-[#0E3E4E]">
         <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content flex flex-col sm:items-start sm:justify-start my-2">
           {/* Page content here */}
@@ -68,12 +67,10 @@ const DashboardLayout = () => {
             {/*Links*/}
             {sharedLinks}
           </ul>
-
         </div>
       </div> : (loading ? <Login /> : <div className="h-screen flex justify-center items-center gap-4 underline text-[#fff]">You aren't Admin<Link to="/"><button className="btn button">Back to Home<MdOutlineAdsClick className='animate-ping' />
       </button></Link></div>)
       }
-
     </div>
   )
 }

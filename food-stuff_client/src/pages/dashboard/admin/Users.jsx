@@ -38,7 +38,7 @@ const Users = () => {
       </div>
       {/* Table */}
       <div className="overflow-x-auto">
-        <table className="table  md:w-[870px]">
+        <table className="table  xl:w-[870px]">
           {/* head */}
           <thead className='bg-[#FF7A92] text-[#fff] rounded-lg'>
             <tr>
@@ -59,7 +59,6 @@ const Users = () => {
                 <td>{user.role === "admin" ? "Admin" : (<button onClick={() => handleMakeAdmin(user)} className='btn rounded-full text-[#fff] bg-[#FF7A92] border-none'><RiAdminFill className='hover:scale-125' />
                 </button>)}
                 </td>
-
 
                 <td><button onClick={() => handleDeleteUser(user)} className='btn rounded-full text-[#fff] bg-[#FF7A92] border-none '><ImBin className='hover:scale-125' /></button></td>
               </tr>
