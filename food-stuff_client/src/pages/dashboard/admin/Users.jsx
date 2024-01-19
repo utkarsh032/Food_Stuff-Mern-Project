@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import React from 'react'
 import { ImBin } from "react-icons/im";
-import { FaRegUser } from "react-icons/fa";
+import { RiAdminFill } from "react-icons/ri";
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 
 const Users = () => {
@@ -56,10 +56,12 @@ const Users = () => {
                 <td>{user.name}</td>
                 <td>{user.email}</td>
 
-                <td>{user.role === "admin" ? "Admin" : (<button onClick={() => handleMakeAdmin(user)} className='btn rounded-full text-[#fff] bg-[#FF7A92] border-none'><FaRegUser /></button>)}
+                <td>{user.role === "admin" ? "Admin" : (<button onClick={() => handleMakeAdmin(user)} className='btn rounded-full text-[#fff] bg-[#FF7A92] border-none'><RiAdminFill className='hover:scale-125' />
+                </button>)}
                 </td>
 
-                <td><button onClick={() => handleDeleteUser(user)} className='btn rounded-full text-[#fff] bg-[#FF7A92] border-none '><ImBin /></button></td>
+
+                <td><button onClick={() => handleDeleteUser(user)} className='btn rounded-full text-[#fff] bg-[#FF7A92] border-none '><ImBin className='hover:scale-125' /></button></td>
               </tr>
             ))}
           </tbody>

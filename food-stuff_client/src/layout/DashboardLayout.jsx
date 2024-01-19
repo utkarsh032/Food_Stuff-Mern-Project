@@ -10,6 +10,9 @@ import { BiFoodMenu } from "react-icons/bi";
 import { MdOutlineTrackChanges } from "react-icons/md";
 import { MdSupportAgent } from "react-icons/md";
 import { MdOutlineDashboardCustomize } from "react-icons/md";
+import { GiReturnArrow } from "react-icons/gi";
+import { MdOutlineAdsClick } from "react-icons/md";
+
 
 import { AiOutlineLogout } from "react-icons/ai";
 
@@ -57,7 +60,7 @@ const DashboardLayout = () => {
 
             <li className='mt-3'><Link to='/dashboard'><MdOutlineSpaceDashboard />Dashboard</Link></li>
             <li><Link to='/'><TbBrandBooking />Manage Bookings</Link></li>
-            <li><Link to='/'><MdAddCircleOutline />Add Menu</Link></li>
+            <li><Link to='/dashboard/add-menu'><MdAddCircleOutline />Add Menu</Link></li>
             <li><Link to='/'><FaRegEdit />Manage Items</Link></li>
             <li className='mb-3'><Link to='/dashboard/users' ><FaUsersViewfinder />Users</Link></li>
             <hr />
@@ -67,7 +70,8 @@ const DashboardLayout = () => {
           </ul>
 
         </div>
-      </div> : <Login />
+      </div> : (loading ? <Login /> : <div className="h-screen flex justify-center items-center gap-4 underline text-[#fff]">You aren't Admin<Link to="/"><button className="btn button">Back to Home<MdOutlineAdsClick className='animate-ping' />
+      </button></Link></div>)
       }
 
     </div>

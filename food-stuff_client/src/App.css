@@ -26,6 +26,7 @@ header, nav{
   @apply bg-gradient-to-tr from-[#FADBFF] to-[#CF95FD]
 }
 
+
 .subTitle{
   @apply text-[#EB2424] uppercase tracking-wide font-medium text-lg
 }
