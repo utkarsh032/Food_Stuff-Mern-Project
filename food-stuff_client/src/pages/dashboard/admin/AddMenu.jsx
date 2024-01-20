@@ -1,13 +1,55 @@
 import React from 'react'
 import { IoFastFood } from "react-icons/io5";
 import { useForm } from "react-hook-form"
-
+import useAxiosPublic from "../../../hooks/useAxiosPublic"
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import Swal from 'sweetalert2'
 
 const AddMenu = () => {
   const { register, handleSubmit, reset } = useForm();
+  const axiosPublic = useAxiosPublic()
+  const axiosSecure = useAxiosSecure();
 
-  const onSubmit = (data) => {
+
+  // image_hosting_key
+  const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY
+
+  const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`
+  const onSubmit = async (data) => {
     console.log(data)
+
+    const imageFile = { image: data.image[0] };
+    const hostingImage = await axiosPublic.post(image_hosting_api, imageFile, {
+      headers: {
+        "content-type": "multipart/form-data",
+      },
+    });
+    console.log(hostingImage)
+
+    if (hostingImage.data.success) {
+      const menuItem = {
+        name: data.name,
+        category: data.category,
+        price: parseFloat(data.price),
+        recipe: data.recipe,
+        image: hostingImage.data.data.display_url
+      };
+
+      console.log(menuItem);
+      const postMenuItem = axiosSecure.post('/menu', menuItem);
+      if (postMenuItem) {
+        reset()
+        Swal.fire({
+          position: "top-center",
+          icon: "success",
+          title: "Recipe is inserted successfully!",
+          showConfirmButton: false,
+          timer: 500,
+          confirmButtonColor: "#FF7A92",
+          background: "#CF95FD",
+        });
+      }
+    }
   }
 
   return (
