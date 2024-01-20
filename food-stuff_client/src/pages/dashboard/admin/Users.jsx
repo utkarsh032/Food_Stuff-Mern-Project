@@ -37,10 +37,10 @@ const Users = () => {
         <h5>Total Users :{users.length}</h5>
       </div>
       {/* Table */}
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto backgroundPrimary rounded-r-xl -mx-4">
         <table className="table  xl:w-[870px]">
           {/* head */}
-          <thead className='bg-[#FF7A92] text-[#fff] rounded-lg'>
+          <thead className='bg-[#FF7A92] text-[#fff] '>
             <tr>
               <th>#</th>
               <th>Name</th>

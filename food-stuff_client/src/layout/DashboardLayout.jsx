@@ -60,7 +60,7 @@ const DashboardLayout = () => {
             <li className='mt-3'><Link to='/dashboard'><MdOutlineSpaceDashboard />Dashboard</Link></li>
             <li><Link to='/'><TbBrandBooking />Manage Bookings</Link></li>
             <li><Link to='/dashboard/add-menu'><MdAddCircleOutline />Add Menu</Link></li>
-            <li><Link to='/'><FaRegEdit />Manage Items</Link></li>
+            <li><Link to='/dashboard/manage-items'><FaRegEdit />Manage Items</Link></li>
             <li className='mb-3'><Link to='/dashboard/users' ><FaUsersViewfinder />Users</Link></li>
             <hr />
 
