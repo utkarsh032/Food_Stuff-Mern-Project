@@ -17,7 +17,6 @@ const menuSchema = new Schema({
     type: Date,
     default: Date.now
   }
-
 })
 
 const Menu = mongoose.model('Menu', menuSchema)

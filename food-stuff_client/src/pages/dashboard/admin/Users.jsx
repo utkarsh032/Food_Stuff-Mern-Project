@@ -33,7 +33,8 @@ const Users = () => {
   return (
     <div>
       <div className='flex items-center justify-between m-4'>
-        <h5>USERS</h5>
+        <h2 className='text-3xl font-semibold '>All The <span className='text-[#EB2424]'>Users</span></h2>
+
         <h5>Total Users :{users.length}</h5>
       </div>
       {/* Table */}

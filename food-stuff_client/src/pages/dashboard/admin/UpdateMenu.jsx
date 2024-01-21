@@ -4,8 +4,12 @@ import { useForm } from "react-hook-form"
 import useAxiosPublic from "../../../hooks/useAxiosPublic"
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import Swal from 'sweetalert2'
+import { useLoaderData, useNavigate } from 'react-router-dom';
 
-const AddMenu = () => {
+const UpdateMenu = () => {
+  const item = useLoaderData();
+  const navigate = useNavigate()
+
   const { register, handleSubmit, reset } = useForm();
   const axiosPublic = useAxiosPublic()
   const axiosSecure = useAxiosSecure();
@@ -25,7 +29,6 @@ const AddMenu = () => {
       },
     });
     console.log(hostingImage)
-
     if (hostingImage.data.success) {
       const menuItem = {
         name: data.name,
@@ -36,25 +39,28 @@ const AddMenu = () => {
       };
 
       console.log(menuItem);
-      const postMenuItem = axiosSecure.post('/menu', menuItem);
+      const postMenuItem = axiosSecure.patch(`/menu/${item._id}`, menuItem);
       if (postMenuItem) {
         reset()
         Swal.fire({
           position: "top-center",
           icon: "success",
-          title: "Recipe is inserted successfully!",
+          title: "Recipe is updated successfully!",
           showConfirmButton: false,
           timer: 500,
           confirmButtonColor: "#FF7A92",
           background: "#CF95FD",
         });
+        navigate("/dashboard/manage-items")
       }
     }
+
   }
+
 
   return (
     <div className='w-full xl:w-[870px] mx-auto'>
-      <h2 className='text-3xl font-semibold my-4'>Upload A New Menu <span className='text-[#EB2424]'>Product</span></h2>
+      <h2 className='text-3xl font-semibold my-4'>Update This  <span className='text-[#EB2424]'>Recipe</span></h2>
 
       {/* back  */}
       <div className='backgroundPrimary rounded-r-xl -mx-4'>
@@ -65,7 +71,7 @@ const AddMenu = () => {
               <label className='label'>
                 <span className='label-text text-[#0E3E4E]'>Recipe Name</span>
               </label>
-              <input type='text'  {...register("name", { required: true })} className='input input-bordered w-full' placeholder='Recipe Name' />
+              <input type='text' defaultValue={item.name}  {...register("name", { required: true })} className='input input-bordered w-full' placeholder='Recipe Name' />
             </div>
 
             {/*2nd*/}
@@ -75,7 +81,7 @@ const AddMenu = () => {
                 <label className="label">
                   <span className="label-text text-[#0E3E4E]">Category</span>
                 </label>
-                <select  {...register("category", { required: true })} className="select select-bordered label-text" defaultValue="default">
+                <select defaultValue={item.category} {...register("category", { required: true })} className="select select-bordered label-text" >
                   <option disabled value="default" >Select a Category</option>
                   <option value="salad">Salad</option>
                   <option value="drinks">Drinks</option>
@@ -93,7 +99,7 @@ const AddMenu = () => {
                 <label className='label '>
                   <span className='label-text text-[#0E3E4E]'>Price</span>
                 </label>
-                <input type='number' {...register("price", { required: true })} className='input input-bordered w-full' placeholder='Price' />
+                <input type='number' defaultValue={item.price} {...register("price", { required: true })} className='input input-bordered w-full' placeholder='Price' />
               </div>
             </div>
 
@@ -103,7 +109,7 @@ const AddMenu = () => {
               <label className="label">
                 <span className="label-text text-[#0E3E4E]">Recipe Method</span>
               </label>
-              <textarea  {...register("recipe", { required: true })} className="textarea textarea-bordered h-24 " placeholder="Write about recipe..."></textarea>
+              <textarea defaultValue={item.recipe} {...register("recipe", { required: true })} className="textarea textarea-bordered h-24 " placeholder="Write about recipe..."></textarea>
             </div>
 
             {/*4th*/}
@@ -115,12 +121,10 @@ const AddMenu = () => {
             </div>
 
             {/*btn*/}
-            <button className='button my-4'>Add Recipe<IoFastFood /></button>
+            <button className='button my-4'>Update Recipe<IoFastFood /></button>
 
           </form>
         </div>
-
-
 
       </div>
 
@@ -128,4 +132,4 @@ const AddMenu = () => {
   )
 }
 
-export default AddMenu
+export default UpdateMenu

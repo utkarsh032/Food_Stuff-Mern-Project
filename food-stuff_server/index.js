@@ -34,7 +34,7 @@ app.use('/menu', menuRoutes)
 app.use('/carts', cartRoutes)
 app.use('/users', userRoutes)
 
-app.get('/',  (req, res) => {
+app.get('/', (req, res) => {
   res.send('Hello FoodStuff!')
 })
 

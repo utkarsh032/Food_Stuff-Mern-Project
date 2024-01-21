@@ -13,6 +13,7 @@ import Users from "../pages/dashboard/admin/Users";
 import LogIn from "../components/Login";
 import AddMenu from "../pages/dashboard/admin/AddMenu";
 import ManageItem from "../pages/dashboard/admin/ManageItem";
+import UpdateMenu from "../pages/dashboard/admin/UpdateMenu";
 
 const router = createBrowserRouter([
   {
@@ -65,7 +66,11 @@ const router = createBrowserRouter([
         path: 'manage-items',
         element: <ManageItem />
       },
-
+      {
+        path: 'update-menu/:id',
+        element: <UpdateMenu />,
+        loader: ({ params }) => fetch(`http://localhost:5000/menu/${params.id}`)
+      }
     ]
   }
 ]);
