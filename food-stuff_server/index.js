@@ -8,6 +8,8 @@ require('dotenv').config()
 
 const jwt = require('jsonwebtoken');
 
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY)
+
 
 app.use(cors())
 app.use(express.json())
@@ -34,9 +36,29 @@ app.use('/menu', menuRoutes)
 app.use('/carts', cartRoutes)
 app.use('/users', userRoutes)
 
-app.get('/', (req, res) => {
-  res.send('Hello FoodStuff!')
-})
+// stripePayment
+
+app.post('/create-payment-intent', async (req, res) => {
+  try {
+    const { price } = req.body;
+    const amount = price * 100;
+
+    const paymentIntent = await stripe.paymentIntents.create({
+      amount,
+      currency: 'usd',
+      payment_method_types: ['card'],
+    });
+
+    res.send({
+      clientSecret: paymentIntent.client_secret,
+    });
+  } catch (error) {
+    console.error('Error creating PaymentIntent:', error.message);
+    res.status(500).json({ error: 'Internal server error.' });
+  }
+});
+
+
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)

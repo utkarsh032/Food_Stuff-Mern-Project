@@ -1,12 +1,36 @@
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { FaPaypal } from "react-icons/fa";
+import { FcGoogle } from "react-icons/fc";
+import { SiPhonepe } from "react-icons/si";
+import { FaLongArrowAltRight } from "react-icons/fa";
+
+import useAuth from '../../hooks/useAuth'
+import useAxiosSecure from '../../hooks/useAxiosSecure'
+
 
 const CheckoutForm = ({ price, cart }) => {
   const stripe = useStripe()
   const elements = useElements()
 
+  const { user } = useAuth()
+  const axiosSecure = useAxiosSecure()
+
   const [cardError, setCardError] = useState()
+  const [clientSecret, setClientSecret] = useState()
+
+  useEffect(() => {
+    if (typeof price !== 'number' || price < 1) {
+      console.log('No number Price')
+      return
+    }
+
+    axiosSecure.post('/create-payment-intent', { price })
+      .then(res => {
+        setClientSecret(res.data.clientSecret)
+      })
+  }, [price, axiosSecure]);
+
   // handleSubmit
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -30,7 +54,28 @@ const CheckoutForm = ({ price, cart }) => {
       setCardError(error.message);
     } else {
       setCardError("success!")
-      console.log('[PaymentMethod]', paymentMethod);
+    }
+
+    const { paymentIntent, error: confirmError } = await stripe.confirmCardPayment(
+      clientSecret,
+      {
+        payment_method: {
+          card: card,
+          billing_details: {
+            name: user?.displayName || 'anonymous',
+            email: user?.email || 'unknown'
+          },
+        },
+      }
+    )
+
+    if (confirmError) {
+      console.log(confirmError)
+    }
+    console.log(paymentIntent)
+    if (paymentIntent.status === 'succeeded') {
+      console.log(paymentIntent.id)
+      setCardError(`Your transactionId is ${paymentIntent.id}`)
     }
   };
 
@@ -44,7 +89,7 @@ const CheckoutForm = ({ price, cart }) => {
 
       </div>
       {/*right*/}
-      <div className='md:w-1/3 w-full space-y-5  shrink-0 shadow-2xl backgroundPrimary rounded-l-2xl px-4 py-16 md:translate-y-1/2'>
+      <div className='md:w-1/3 w-full space-y-5  shrink-0 shadow-2xl backgroundPrimary rounded-l-2xl px-10 py-16 md:translate-y-1/2 '>
         <h4 className='text-xl font-semibold'>Process Your Payment</h4>
         <h5 className='font-medium'>Credit/Debit Card</h5>
 
@@ -67,7 +112,7 @@ const CheckoutForm = ({ price, cart }) => {
             }}
           />
           <button className='w-full mt-5 button' type="submit" disabled={!stripe}>
-            Pay Now
+            Pay Now<FaLongArrowAltRight />
           </button>
           {
             cardError ? <p className='text-red-500 italic text-xs my-3 float-end'>{cardError}</p> : ''
@@ -75,12 +120,23 @@ const CheckoutForm = ({ price, cart }) => {
         </form>
 
         {/*paypal */}
-        <div className='mt-5 text-center'>
-          <hr />
+        <hr />
+        <div className='mt-5 text-center flex md:flex-row flex-wrap justify-center items-center gap-2'>
+
           <button className='button' type="submit">
-            <FaPaypal />Pay With Paypal
+            <SiPhonepe className='text-[#6739B7]' />Pay
           </button>
+
+          <button className='button' type="submit">
+            <FcGoogle />Pay
+          </button>
+
+          <button className='button' type="submit">
+            <FaPaypal className='text-[#012169]' /><span className='text-[#012169]'>Pay</span><span className='text-[#253B80]'>With</span><span className='text-[#169BD7]'>Paypal</span>
+          </button>
+
         </div>
+
       </div>
     </div>
   )
