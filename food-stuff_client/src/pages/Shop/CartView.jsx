@@ -195,7 +195,7 @@ const CartView = () => {
                 <h3 className='font-medium'>Shopping Details</h3>
                 <p>Total Item: {cart.length}</p>
                 <p>Total Amount: $ {orderTotal.toFixed(2)}</p>
-                <button className='btn rounded-full btn-md  bg-[#FF7A92] text-[#fff] border-none'>Checkout</button>
+                <Link to='/process-checkout'>   <button className='btn rounded-full btn-md  bg-[#FF7A92] text-[#fff] border-none'>Checkout</button></Link>
               </div>
             </div>
           </div>

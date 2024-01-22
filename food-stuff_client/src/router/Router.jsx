@@ -14,6 +14,7 @@ import LogIn from "../components/Login";
 import AddMenu from "../pages/dashboard/admin/AddMenu";
 import ManageItem from "../pages/dashboard/admin/ManageItem";
 import UpdateMenu from "../pages/dashboard/admin/UpdateMenu";
+import Payment from "../pages/Shop/Payment";
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
       {
         path: "/cart-view",
         element: <CartView />
+      },
+      {
+        path: "/process-checkout",
+        element: <Payment />
       },
       {
         path: '/update-profile',
@@ -67,7 +72,7 @@ const router = createBrowserRouter([
         element: <ManageItem />
       },
       {
-        path: 'update-menu/:id',
+        path: "update-menu/:id",
         element: <UpdateMenu />,
         loader: ({ params }) => fetch(`http://localhost:5000/menu/${params.id}`)
       }

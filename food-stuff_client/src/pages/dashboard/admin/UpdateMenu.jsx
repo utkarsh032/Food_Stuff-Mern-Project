@@ -37,8 +37,8 @@ const UpdateMenu = () => {
         recipe: data.recipe,
         image: hostingImage.data.data.display_url
       };
-
       console.log(menuItem);
+
       const postMenuItem = axiosSecure.patch(`/menu/${item._id}`, menuItem);
       if (postMenuItem) {
         reset()
