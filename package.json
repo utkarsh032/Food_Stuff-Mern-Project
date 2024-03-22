@@ -1,0 +1,23 @@
+{
+  "name": "foodstuff",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "set NODE_ENV=production&& node food-stuff_server/index.js",
+    "dev": "set NODE_ENV=development&& nodemon food-stuff_server/index.js",
+    "build": "npm install && npm install --prefix food-stuff_client && npm run build --prefix food-stuff_client"
+  },
+  "author": "Utkarsh Raj",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.1",
+    "jsonwebtoken": "^9.0.2",
+    "mongodb": "^6.5.0",
+    "mongoose": "^8.2.3",
+    "nodemon": "^3.1.0",
+    "stripe": "^14.22.0"
+  }
+}
